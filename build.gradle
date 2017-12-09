@@ -5,12 +5,14 @@ buildscript {
     }
     dependencies {
         classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.0.0.M7'
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.2'
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.junit.platform.gradle.plugin'
 
 jar {
     baseName = 'myproject'
@@ -24,7 +26,24 @@ repositories {
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
-    testCompile("org.springframework.boot:spring-boot-starter-test")
+
+    testCompile (
+            "org.springframework.boot:spring-boot-starter-test",
+            "org.junit.jupiter:junit-jupiter-api"
+    )
+    // To avoid compiler warnings about @API annotations in JUnit code
+    testCompileOnly('org.apiguardian:apiguardian-api:1.0.0')
+
+    testRuntime("org.junit.jupiter:junit-jupiter-engine")
+
+    // To use Log4J's LogManager
+    testRuntime("org.apache.logging.log4j:log4j-core")
+    testRuntime("org.apache.logging.log4j:log4j-jul")
+}
+
+junitPlatform {
+    logManager 'org.apache.logging.log4j.jul.LogManager'
+    reportsDir file('build/test-results/junit-platform') // this is the default
 }
 
 wrapper {
