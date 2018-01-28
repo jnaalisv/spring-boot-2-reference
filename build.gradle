@@ -58,5 +58,5 @@ task junit5CodeCoverageReport(type:JacocoReport){
 junitPlatformTest.finalizedBy junit5CodeCoverageReport
 
 wrapper {
-    gradleVersion = "4.4"
+    gradleVersion = "4.5"
 }
