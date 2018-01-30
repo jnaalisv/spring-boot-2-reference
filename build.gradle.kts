@@ -1,27 +1,9 @@
-buildscript {
-    repositories {
-        mavenCentral()
-        maven("https://repo.spring.io/milestone")
-    }
-
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.0.M7")
-        classpath("org.junit.platform:junit-platform-gradle-plugin:1.0.2")
-    }
-}
-
-apply {
-    plugin("org.springframework.boot")
-
-    // Native Gradle support for JUnit5 is coming: https://github.com/gradle/gradle/issues/828
-    // also, https://github.com/gradle/gradle/pull/3886
-    plugin("org.junit.platform.gradle.plugin")
-}
-
 plugins {
     java
     jacoco
     id("io.spring.dependency-management") version "1.0.4.RELEASE"
+    id("org.junit.platform.gradle.plugin") version "1.0.2"
+    id("org.springframework.boot") version "2.0.0.M7"
 }
 
 version = "0.0.1-SNAPSHOT"
