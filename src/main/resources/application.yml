@@ -7,3 +7,6 @@ logging:
   level:
     root: INFO
     org.springframework: INFO
+
+server:
+  port: 5000

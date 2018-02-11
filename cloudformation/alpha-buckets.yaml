@@ -1,0 +1,13 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Bucket for deploying Alpha application"
+Resources:
+  AlphaBucket:
+    Type: "AWS::S3::Bucket"
+
+Outputs:
+  WebsiteURL:
+    Value: !GetAtt [AlphaBucket, WebsiteURL]
+    Description: URL for website hosted on S3
+  AlphaBucketSecureURL:
+    Value: !Join ['', ['https://', !GetAtt [AlphaBucket, DomainName]]]
+    Description: Name of AlphaBucket bucket to hold website content
