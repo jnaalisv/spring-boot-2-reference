@@ -1,6 +1,6 @@
 include eb.env
 
-.PHONY: build publishJar publishTemplate deploy clean undeploy
+.PHONY: build publishJar publishTemplate deploy clean undeploy events describe
 
 check-bucket:
 	test -n "$(BUCKET)" || (echo "BUCKET must be defined in eb.env"; exit 1)
@@ -22,3 +22,9 @@ undeploy:
 
 clean: build
 	find -d build | xargs rm -fd
+
+events:
+	aws cloudformation describe-stack-events --stack-name AlphaElasticBeanStalk
+
+describe:
+	aws cloudformation describe-stacks --stack-name AlphaElasticBeanStalk
