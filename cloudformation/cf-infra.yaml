@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Bucket for deploying the application"
+
+Parameters:
+  DeploymentBucketNameParam:
+    Type: String
+
+Resources:
+  DeploymentBucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName:
+        !Ref DeploymentBucketNameParam
+
+Outputs:
+  DeploymentBucketName:
+    Value: !Ref "DeploymentBucket"
+  DeploymentBucketUrl:
+    Value: !GetAtt [DeploymentBucket, DomainName]
+    Description: URL for DeploymentBucket
+  DeploymentBucketSecureURL:
+    Value: !Join ['', ['https://', !GetAtt [DeploymentBucket, DomainName]]]
+    Description: Secure URL for DeploymentBucket

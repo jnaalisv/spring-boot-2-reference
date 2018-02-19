@@ -1,0 +1,63 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Parameters:
+  AppJarName:
+    Type: "String"
+    Description : "Name of the application jar"
+  SourceBucket:
+    Type: "String"
+    Description: "Source Bucket of the application jar"
+
+Resources:
+  Boot2Application:
+    Type: "AWS::ElasticBeanstalk::Application"
+    Properties:
+      Description: "Spring Boot2 application in and Elastic Beanstalk"
+
+  Boot2ApplicationVersion:
+    Type: "AWS::ElasticBeanstalk::ApplicationVersion"
+    Properties:
+      ApplicationName:
+        Ref: "Boot2Application"
+      SourceBundle:
+        S3Bucket:
+          Ref: "SourceBucket"
+        S3Key:
+          Ref: "AppJarName"
+
+  Boot2ApplicationConfigurationTemplate:
+    Type: "AWS::ElasticBeanstalk::ConfigurationTemplate"
+    Properties:
+      ApplicationName:
+        Ref: "Boot2Application"
+      Description: "A Spring Boot2 application config template"
+      OptionSettings:
+        - Namespace: "aws:autoscaling:asg"
+          OptionName: "MinSize"
+          Value: "1"
+
+        - Namespace: "aws:autoscaling:asg"
+          OptionName: "MaxSize"
+          Value: "2"
+
+        - Namespace: "aws:elasticbeanstalk:environment"
+          OptionName: "EnvironmentType"
+          Value: "LoadBalanced"
+
+      SolutionStackName: "64bit Amazon Linux 2017.09 v2.6.5 running Java 8"
+
+  Boot2ApplicationEnvironment:
+    Type: "AWS::ElasticBeanstalk::Environment"
+    Properties:
+      ApplicationName:
+        Ref: "Boot2Application"
+      EnvironmentName: "BeanstalkForBoot2"
+      TemplateName:
+        Ref: "Boot2ApplicationConfigurationTemplate"
+      VersionLabel:
+        Ref: "Boot2ApplicationVersion"
+
+Outputs:
+  BackendEndpointUrl:
+    Description: Endpoint for the backend application
+    Value:
+      Fn::GetAtt: [Boot2ApplicationEnvironment, EndpointURL]

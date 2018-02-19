@@ -1,13 +1,16 @@
+include ../eb.env
+include ../aws.env
+
 .PHONY: stack clean events describe
 
 stack:
-	aws cloudformation create-stack --stack-name AlphaBuckets --capabilities "CAPABILITY_NAMED_IAM" --template-body file://alpha-buckets.yaml
+	aws --region $(AWS_REGION) cloudformation create-stack --stack-name $(INFRA_STACK_NAME) --capabilities "CAPABILITY_NAMED_IAM" --template-body file://cf-infra.yaml --parameters ParameterKey=DeploymentBucketNameParam,ParameterValue=$(DEPLOYMENT_BUCKET_NAME)
 
 clean:
-	aws cloudformation delete-stack --stack-name AlphaBuckets
+	aws --region $(AWS_REGION) cloudformation delete-stack --stack-name $(INFRA_STACK_NAME)
 
 events:
-	aws cloudformation describe-stack-events --stack-name AlphaBuckets
+	aws --region $(AWS_REGION) cloudformation describe-stack-events --stack-name $(INFRA_STACK_NAME)
 
 describe:
-	aws cloudformation describe-stacks --stack-name AlphaBuckets
+	aws --region $(AWS_REGION) cloudformation describe-stacks --stack-name $(INFRA_STACK_NAME)
