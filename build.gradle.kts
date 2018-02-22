@@ -2,7 +2,7 @@ plugins {
     java
     jacoco
     id("io.spring.dependency-management") version "1.0.4.RELEASE"
-    id("org.junit.platform.gradle.plugin") version "1.0.2"
+    id("org.junit.platform.gradle.plugin") version "1.1.0"
     id("org.springframework.boot") version "2.0.0.RC2"
 }
 
