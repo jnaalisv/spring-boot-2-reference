@@ -15,6 +15,8 @@ repositories {
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile(files("libs/ojdbc6.jar"))
+
     testCompile("org.springframework.boot:spring-boot-starter-test") {
         exclude(module = "junit")
     }
