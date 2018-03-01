@@ -3,14 +3,13 @@ plugins {
     jacoco
     id("io.spring.dependency-management") version "1.0.4.RELEASE"
     id("org.junit.platform.gradle.plugin") version "1.1.0"
-    id("org.springframework.boot") version "2.0.0.RC2"
+    id("org.springframework.boot") version "2.0.0.RELEASE"
 }
 
 version = "0.0.1-SNAPSHOT"
 
 repositories {
     mavenCentral()
-    maven("http://repo.spring.io/milestone")
 }
 
 dependencies {
