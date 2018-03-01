@@ -13,13 +13,11 @@ repositories {
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
+    
     testCompile("org.springframework.boot:spring-boot-starter-test") {
         exclude(module = "junit")
     }
     testCompile("org.junit.jupiter:junit-jupiter-api")
-
-    // To avoid compiler warnings about @API annotations in JUnit code
-    testCompileOnly("org.apiguardian:apiguardian-api:1.0.0")
 
     testRuntime("org.junit.jupiter:junit-jupiter-engine")
 }
