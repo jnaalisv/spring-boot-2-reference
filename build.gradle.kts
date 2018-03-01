@@ -2,7 +2,6 @@ plugins {
     java
     jacoco
     id("io.spring.dependency-management") version "1.0.4.RELEASE"
-    id("org.junit.platform.gradle.plugin") version "1.1.0"
     id("org.springframework.boot") version "2.0.0.RELEASE"
 }
 
@@ -25,23 +24,14 @@ dependencies {
     testRuntime("org.junit.jupiter:junit-jupiter-engine")
 }
 
-val junitPlatformTest: JavaExec by tasks
+val test: Test by tasks
+test.useJUnitPlatform()
 
-jacoco {
-    applyTo(junitPlatformTest)
+val jacocoTestReport: JacocoReport by tasks
+jacocoTestReport.reports {
+    xml.isEnabled = false
+    html.isEnabled = true
+    html.destination = file("${buildDir}/jacocoHtml")
 }
 
-val main: SourceSet by java.sourceSets
-
-task<JacocoReport>("junit5CoverageReport") {
-    executionData(junitPlatformTest)
-    sourceSets(main)
-
-    reports {
-        xml.isEnabled = false
-        html.isEnabled = true
-        html.destination = file("${buildDir}/jacocoHtml")
-    }
-
-    junitPlatformTest.finalizedBy(this)
-}
+test.finalizedBy(jacocoTestReport)
