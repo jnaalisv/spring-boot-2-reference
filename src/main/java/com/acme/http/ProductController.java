@@ -1,13 +1,10 @@
 package com.acme.http;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.acme.domain.Product;
-import com.acme.domain.ProductService;
+import com.acme.application.domain.Product;
+import com.acme.application.ProductService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -25,7 +22,7 @@ public class ProductController {
 
     @PostMapping("/products")
     public ResponseEntity<?> save(@RequestBody NewProductDTO newProductDTO) {
-        final Product product = new Product(newProductDTO.name);
+        final Product product = Product.of(newProductDTO.name);
         productService.save(product);
 
         final URI location = ServletUriComponentsBuilder
@@ -45,22 +42,31 @@ public class ProductController {
         final List<Product> products = productService.getAll();
         return products
                 .stream()
-                .map(product -> new ProductDTO(product.getId(), product.getName()))
+                .map(ProductDTO::of)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("/products/{id}")
+    public ProductDTO get(@PathVariable String id) {
+        final Product product =  productService.get(id);
+        return ProductDTO.of(product);
     }
 
     static class ProductDTO {
 
         @JsonProperty
-        final long id;
+        final String id;
 
         @JsonProperty
         final String name;
 
-        ProductDTO(long id, String name) {
+        ProductDTO(String id, String name) {
             this.name = name;
             this.id = id;
         }
-    }
 
+        static ProductDTO of(Product product) {
+            return new ProductDTO(product.getId(), product.getName());
+        }
+    }
 }

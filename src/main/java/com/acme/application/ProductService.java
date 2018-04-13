@@ -1,5 +1,7 @@
-package com.acme.domain;
+package com.acme.application;
 
+import com.acme.application.domain.Product;
+import com.acme.application.domain.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +14,11 @@ public class ProductService {
 
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
+    }
+
+    @Transactional
+    public Product get(String id) {
+        return productRepository.get(id);
     }
 
     @Transactional
