@@ -1,7 +1,7 @@
-package hello.persistence;
+package com.acme.persistence;
 
-import hello.domain.Product;
-import hello.domain.ProductRepository;
+import com.acme.domain.Product;
+import com.acme.domain.ProductRepository;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 

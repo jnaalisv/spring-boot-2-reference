@@ -1,4 +1,4 @@
-package hello.persistence;
+package com.acme.persistence;
 
 import org.hibernate.SessionFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -24,7 +24,7 @@ public class HibernateConfiguration {
     @Bean
     public SessionFactory sessionFactory(DataSource dataSource, Properties hibernateProperties) {
         return new LocalSessionFactoryBuilder(dataSource)
-                .scanPackages("hello.domain")
+                .scanPackages("com.acme.domain")
                 .addProperties(hibernateProperties)
                 .buildSessionFactory();
     }

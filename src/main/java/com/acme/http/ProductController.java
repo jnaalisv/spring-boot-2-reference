@@ -1,8 +1,8 @@
-package hello.http;
+package com.acme.http;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import hello.domain.Product;
-import hello.domain.ProductService;
+import com.acme.domain.Product;
+import com.acme.domain.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

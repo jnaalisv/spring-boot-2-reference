@@ -1,4 +1,4 @@
-package hello.domain;
+package com.acme.domain;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
