@@ -1,2 +1,16 @@
 ### Spring Boot 2 sample project
-Built with gradle and JUnit 5 as test runner.
+- gradlew 4.6 with kotlin
+- Hibernate 5.2
+- JUnit Jupiter
+
+`
+$ ./gradlew bootRun
+`
+
+`
+$ http POST localhost:8080/products name=ShinyThingy
+`
+
+`
+$ http GET localhost:8080/products
+`

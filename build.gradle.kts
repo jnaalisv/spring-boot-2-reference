@@ -13,7 +13,11 @@ repositories {
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
-    
+    compile("org.springframework:spring-orm")
+    compile("org.hibernate:hibernate-core")
+    compile("com.zaxxer:HikariCP")
+    compile("com.h2database:h2")
+
     testCompile("org.springframework.boot:spring-boot-starter-test") {
         exclude(module = "junit")
     }

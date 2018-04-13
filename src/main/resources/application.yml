@@ -3,7 +3,11 @@ spring:
     ansi:
       enabled: always
 
+  jpa:
+    open-in-view: false
+
 logging:
   level:
     root: INFO
     org.springframework: INFO
+    org.hibernate.SQL: DEBUG
