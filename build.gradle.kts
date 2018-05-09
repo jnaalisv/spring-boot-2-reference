@@ -18,8 +18,12 @@ springBoot {
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-web") {
+        exclude(module = "spring-boot-starter-tomcat")
+    }
     compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.springframework.boot:spring-boot-starter-undertow")
+
     compile("org.springframework:spring-orm")
     compile("org.hibernate:hibernate-core")
     compile("com.zaxxer:HikariCP")
