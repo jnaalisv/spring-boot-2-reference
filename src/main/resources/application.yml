@@ -25,3 +25,9 @@ logging:
     org.springframework: INFO
     org.hibernate: INFO
     org.hibernate.SQL: DEBUG
+
+server:
+  undertow:
+    accesslog:
+      enabled: true
+      pattern: '%t %a "%r" %s (%D ms)'
