@@ -11,8 +11,13 @@ repositories {
     mavenCentral()
 }
 
+springBoot {
+    buildInfo()
+}
+
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework:spring-orm")
     compile("org.hibernate:hibernate-core")
     compile("com.zaxxer:HikariCP")
