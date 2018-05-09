@@ -2,7 +2,7 @@ plugins {
     java
     jacoco
     id("io.spring.dependency-management") version "1.0.5.RELEASE"
-    id("org.springframework.boot") version "2.0.1.RELEASE"
+    id("org.springframework.boot") version "2.0.2.RELEASE"
 }
 
 version = "0.0.1-SNAPSHOT"
