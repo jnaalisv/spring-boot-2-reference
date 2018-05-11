@@ -19,6 +19,13 @@ spring:
           batch_size: 30
           batch_versioned_data: true
 
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: ["health", "info", "configprops", "env"]
+
 logging:
   level:
     root: INFO
