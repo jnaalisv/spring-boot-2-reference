@@ -1,7 +1,10 @@
+server:
+  port: 5000
+
 spring:
   output:
     ansi:
-      enabled: always
+      enabled: never
 
   jpa:
     open-in-view: false
