@@ -17,6 +17,18 @@ springBoot {
     buildInfo()
 }
 
+dependencyManagement {
+    dependencies {
+        // JAXB (JSR 222) Standalone Implementation
+        dependency ("javax.xml.bind:jaxb-api:2.3.0")
+        dependency ("com.sun.xml.bind:jaxb-impl:2.3.0")
+        dependency ("com.sun.xml.bind:jaxb-core:2.3.0")
+
+        // JSR-925 Java Beans Activation Framework
+        dependency ("javax.activation:activation:1.1.1")
+    }
+}
+
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web") {
         exclude(module = "spring-boot-starter-tomcat")
@@ -28,6 +40,11 @@ dependencies {
     compile("org.hibernate:hibernate-core")
     compile("com.zaxxer:HikariCP")
     compile("com.h2database:h2")
+
+    runtime ("javax.xml.bind:jaxb-api")
+    runtime ("com.sun.xml.bind:jaxb-impl")
+    runtime ("com.sun.xml.bind:jaxb-core")
+    runtime ("javax.activation:activation")
 
     testCompile("org.springframework.boot:spring-boot-starter-test") {
         exclude(module = "junit")
