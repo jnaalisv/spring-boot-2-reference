@@ -1,6 +1,10 @@
 package com.acme;
 
+import com.zaxxer.hikari.HikariDataSource;
+import net.ttddyy.dsproxy.listener.logging.SLF4JLogLevel;
+import net.ttddyy.dsproxy.support.ProxyDataSourceBuilder;
 import org.hibernate.SessionFactory;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -32,5 +36,22 @@ public class HibernateConfiguration {
     @Bean
     public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
         return new HibernateTransactionManager(sessionFactory);
+    }
+
+    @Bean
+    public DataSource dataSource(DataSourceProperties properties) {
+        final HikariDataSource dataSource = properties
+                .initializeDataSourceBuilder()
+                .type(HikariDataSource.class)
+                .build();
+
+        if (properties.getName() != null) {
+            dataSource.setPoolName(properties.getName());
+        }
+        return ProxyDataSourceBuilder.create(dataSource)
+                .name("HikariDS")
+                .multiline()
+                .logQueryBySlf4j(SLF4JLogLevel.INFO)
+                .build();
     }
 }

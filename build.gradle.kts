@@ -23,9 +23,10 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework:spring-orm")
     compile("org.hibernate:hibernate-core")
-    runtime("com.zaxxer:HikariCP")
+    compile("com.zaxxer:HikariCP")
     runtime("com.h2database:h2")
 
+    compile("net.ttddyy:datasource-proxy:1.4.9")
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("org.junit.jupiter:junit-jupiter-api")
 

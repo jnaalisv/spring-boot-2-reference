@@ -12,7 +12,6 @@ spring:
         generate_statistics: true
         ejb:
           naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
-        format_sql: true
         order_updates: true
         order_inserts: true
         jdbc:
@@ -32,4 +31,3 @@ logging:
     root: INFO
     org.springframework: INFO
     org.hibernate: INFO
-    org.hibernate.SQL: DEBUG
