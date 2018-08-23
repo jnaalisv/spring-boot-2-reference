@@ -1,4 +1,4 @@
-package com.acme.persistence;
+package com.acme;
 
 import org.hibernate.SessionFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
