@@ -1,5 +1,6 @@
 package com.acme.http;
 
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -9,9 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -22,13 +21,12 @@ class ProductResourceTests {
 
     @Test
     void getProductsShouldReturnOK() throws Exception {
-        mvc.perform(
-                get("/products")
-        ).andExpect(status().isOk());
+        mvc.perform(get("/products"))
+            .andExpect(status().isOk());
     }
 
     @Test
-    void postingANewProductShouldReturnOK() throws Exception {
+    void postingANewProductShouldReturnOkAndLocationAndNewProduct() throws Exception {
         mvc.perform(
                 post("/products")
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -38,5 +36,18 @@ class ProductResourceTests {
                 .andExpect(header().string("Content-Type", "application/json;charset=UTF-8"))
                 .andExpect(header().string("Location", "http://localhost/products/1"))
                 .andExpect(content().json("{\"name\":\"HAL9000\", \"id\":1}"));
+    }
+
+    @Nested
+    class APostedProduct {
+
+        @Test
+        void canBeFetched() throws Exception {
+            mvc.perform(
+                    get("/products")
+            )
+                    .andExpect(status().isOk())
+                    .andExpect(content().json("[{\"name\":\"HAL9000\", \"id\":1}]"));
+        }
     }
 }
