@@ -30,4 +30,11 @@ class HibernateProductRepository implements ProductRepository {
                 .createQuery("from Product", Product.class)
                 .list();
     }
+
+    @Override
+    public Product getOne(long productId) {
+        return sessionFactory
+                .getCurrentSession()
+                .find(Product.class, productId);
+    }
 }

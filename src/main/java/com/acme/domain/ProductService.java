@@ -23,4 +23,9 @@ public class ProductService {
     public List<Product> getAll() {
         return productRepository.getAll();
     }
+
+    @Transactional(readOnly = true)
+    public Product getOne(long productId) {
+        return productRepository.getOne(productId);
+    }
 }

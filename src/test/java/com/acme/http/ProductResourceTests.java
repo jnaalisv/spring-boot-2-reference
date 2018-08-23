@@ -49,5 +49,14 @@ class ProductResourceTests {
                     .andExpect(status().isOk())
                     .andExpect(content().json("[{\"name\":\"HAL9000\", \"id\":1}]"));
         }
+
+        @Test
+        void canBeFetchedById() throws Exception {
+            mvc.perform(
+                    get("/products/1")
+            )
+                    .andExpect(status().isOk())
+                    .andExpect(content().json("{\"name\":\"HAL9000\", \"id\":1}"));
+        }
     }
 }
