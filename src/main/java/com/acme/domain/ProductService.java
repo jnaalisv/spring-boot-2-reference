@@ -35,4 +35,9 @@ public class ProductService {
         product.update(name);
         return product;
     }
+
+    @Transactional
+    public void delete(Long productId) {
+        productRepository.delete(productId);
+    }
 }

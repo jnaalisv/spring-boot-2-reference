@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -90,6 +91,11 @@ public class ProductController {
     public ProductDTO update(@PathVariable Long productId, @RequestBody UpdateProductDTO updateProductDTO) {
         final Product updatedProduct = productService.update(productId, updateProductDTO.name);
         return new ProductDTO(updatedProduct.getId(), updatedProduct.getName());
+    }
+
+    @DeleteMapping("/products/{productId}")
+    public void update(@PathVariable Long productId) {
+        productService.delete(productId);
     }
 
 }

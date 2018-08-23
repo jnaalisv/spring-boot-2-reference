@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -79,7 +80,20 @@ class ProductResourceTests {
                             .andExpect(status().isOk())
                             .andExpect(content().json("{\"name\":\"CRAY-1\", \"id\":1}"));
                 }
+
+                @Nested
+                class andThenDelete {
+
+                    @Test
+                    void byIdIsSuccessful() throws Exception {
+                        mvc.perform(delete("/products/1"))
+                                .andExpect(status().isOk());
+                    }
+
+                }
             }
+
+
         }
     }
 
