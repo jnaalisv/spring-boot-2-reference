@@ -26,4 +26,8 @@ public class Product {
     public String getName() {
         return name;
     }
+
+    public void update(final String name) {
+        this.name = name;
+    }
 }

@@ -28,4 +28,11 @@ public class ProductService {
     public Product getOne(long productId) {
         return productRepository.getOne(productId);
     }
+
+    @Transactional
+    public Product update(Long productId, String name) {
+        Product product = productRepository.getOne(productId);
+        product.update(name);
+        return product;
+    }
 }

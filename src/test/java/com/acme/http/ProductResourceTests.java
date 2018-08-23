@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -22,43 +23,65 @@ class ProductResourceTests {
     private MockMvc mvc;
 
     @Test
-    void getProductsShouldReturnOK() throws Exception {
+    void initiallyNoProducts() throws Exception {
         mvc.perform(get("/products"))
-            .andExpect(status().isOk());
-    }
-
-    @Test
-    void postingANewProductShouldReturnOkAndLocationAndNewProduct() throws Exception {
-        mvc.perform(
-                post("/products")
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)
-                        .content("{\"name\":\"HAL9000\"}")
-        )
-                .andExpect(status().isCreated())
-                .andExpect(header().string("Content-Type", "application/json;charset=UTF-8"))
-                .andExpect(header().string("Location", "http://localhost/products/1"))
-                .andExpect(content().json("{\"name\":\"HAL9000\", \"id\":1}"));
+            .andExpect(status().isOk())
+                .andExpect(content().json("[]"));
     }
 
     @Nested
-    class APostedProduct {
+    class aNewProduct {
 
         @Test
-        void canBeFetched() throws Exception {
+        void canBeCreated() throws Exception {
             mvc.perform(
-                    get("/products")
+                    post("/products")
+                            .contentType(MediaType.APPLICATION_JSON_UTF8)
+                            .content("{\"name\":\"HAL9000\"}")
             )
-                    .andExpect(status().isOk())
-                    .andExpect(content().json("[{\"name\":\"HAL9000\", \"id\":1}]"));
-        }
-
-        @Test
-        void canBeFetchedById() throws Exception {
-            mvc.perform(
-                    get("/products/1")
-            )
-                    .andExpect(status().isOk())
+                    .andExpect(status().isCreated())
+                    .andExpect(header().string("Content-Type", "application/json;charset=UTF-8"))
+                    .andExpect(header().string("Location", "http://localhost/products/1"))
                     .andExpect(content().json("{\"name\":\"HAL9000\", \"id\":1}"));
         }
+
+        @Nested
+        class andThen {
+
+            @Test
+            void fetchedWithAllOthers() throws Exception {
+                mvc.perform(
+                        get("/products")
+                )
+                        .andExpect(status().isOk())
+                        .andExpect(content().json("[{\"name\":\"HAL9000\", \"id\":1}]"));
+            }
+
+            @Test
+            void fetchedById() throws Exception {
+                mvc.perform(
+                        get("/products/1")
+                )
+                        .andExpect(status().isOk())
+                        .andExpect(content().json("{\"name\":\"HAL9000\", \"id\":1}"));
+            }
+
+            @Nested
+            class update {
+
+                @Test
+                void returnsTheUpdatedProductAndHttpOK() throws Exception {
+                    mvc.perform(
+                            put("/products/1")
+                                    .contentType(MediaType.APPLICATION_JSON_UTF8)
+                                    .content("{\"name\":\"CRAY-1\"}")
+                    )
+                            .andExpect(status().isOk())
+                            .andExpect(content().json("{\"name\":\"CRAY-1\", \"id\":1}"));
+                }
+            }
+        }
     }
+
+
 }

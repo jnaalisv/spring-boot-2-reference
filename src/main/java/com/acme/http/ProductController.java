@@ -2,12 +2,14 @@ package com.acme.http;
 
 import com.acme.domain.Product;
 import com.acme.domain.ProductService;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -25,6 +27,11 @@ public class ProductController {
         this.productService = productService;
     }
 
+    static class NewProductDTO {
+        @JsonProperty
+        String name;
+    }
+
     @PostMapping("/products")
     public ResponseEntity<?> save(@RequestBody NewProductDTO newProductDTO) {
         final Product product = new Product(newProductDTO.name);
@@ -40,9 +47,18 @@ public class ProductController {
                 .body(new ProductDTO(product.getId(), product.getName()));
     }
 
-    static class NewProductDTO {
+    static class ProductDTO {
+
         @JsonProperty
-        String name;
+        final long id;
+
+        @JsonProperty
+        final String name;
+
+        ProductDTO(long id, String name) {
+            this.name = name;
+            this.id = id;
+        }
     }
 
     @GetMapping("/products")
@@ -60,18 +76,20 @@ public class ProductController {
         return new ProductDTO(product.getId(), product.getName());
     }
 
-    static class ProductDTO {
+    static class UpdateProductDTO {
 
-        @JsonProperty
-        final long id;
-
-        @JsonProperty
         final String name;
 
-        ProductDTO(long id, String name) {
+        @JsonCreator
+        UpdateProductDTO(@JsonProperty("name") String name) {
             this.name = name;
-            this.id = id;
         }
+    }
+
+    @PutMapping("/products/{productId}")
+    public ProductDTO update(@PathVariable Long productId, @RequestBody UpdateProductDTO updateProductDTO) {
+        final Product updatedProduct = productService.update(productId, updateProductDTO.name);
+        return new ProductDTO(updatedProduct.getId(), updatedProduct.getName());
     }
 
 }
