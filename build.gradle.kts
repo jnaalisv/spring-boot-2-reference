@@ -48,9 +48,7 @@ dependencies {
     runtime ("com.sun.xml.bind:jaxb-core")
     runtime ("javax.activation:activation")
 
-    testCompile("org.springframework.boot:spring-boot-starter-test") {
-        exclude(module = "junit")
-    }
+    testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("org.junit.jupiter:junit-jupiter-api")
 
     testRuntime("org.junit.jupiter:junit-jupiter-engine")
