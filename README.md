@@ -1,7 +1,7 @@
-### Spring Boot 2 sample project
-- gradlew 4.6 with kotlin
-- Hibernate 5.2
-- JUnit Jupiter
+### Spring Boot 2.1 sample project
+- gradlew 4.9 with kotlin
+- Hibernate 5.3
+- JUnit Jupiter 5.3
 
 `
 $ ./gradlew bootRun
