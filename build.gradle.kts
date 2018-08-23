@@ -1,6 +1,6 @@
 plugins {
     java
-    //jacoco
+    jacoco
     id("io.spring.dependency-management") version "1.0.6.RELEASE"
     id("org.springframework.boot") version "2.1.0.M2"
 
@@ -58,11 +58,15 @@ dependencies {
 val test: Test by tasks
 test.useJUnitPlatform()
 
-//val jacocoTestReport: JacocoReport by tasks
-//jacocoTestReport.reports {
-//    xml.isEnabled = false
-//    html.isEnabled = true
-//    html.destination = file("${buildDir}/jacocoHtml")
-//}
+val jacocoTestReport: JacocoReport by tasks
+jacocoTestReport.reports {
+    xml.isEnabled = false
+    html.isEnabled = true
+    html.destination = file("${buildDir}/jacocoHtml")
+}
 
-//test.finalizedBy(jacocoTestReport)
+test.finalizedBy(jacocoTestReport)
+
+jacoco {
+    toolVersion = "0.8.2" // latest jacoco with support for java11
+}
