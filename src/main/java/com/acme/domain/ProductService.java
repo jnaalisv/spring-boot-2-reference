@@ -32,11 +32,9 @@ public class ProductService {
     }
 
     @Transactional
-    public Product update(Long productId, String name) {
-        Product product = productRepository
-                .getOne(productId)
-                .orElseThrow(() -> productNotFoundById(productId));
-        product.update(name);
+    public Product update(Long productId, long version, String name) {
+        final Product product = new Product(productId, version, name);
+        productRepository.update(product);
         return product;
     }
 

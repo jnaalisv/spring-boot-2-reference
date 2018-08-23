@@ -3,6 +3,7 @@ package com.acme.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Version;
 
 @Entity
 public class Product {
@@ -11,11 +12,20 @@ public class Product {
     @GeneratedValue
     private long id;
 
+    @Version
+    private long version;
+
     Product() { /* for hibernate */}
 
     private String name;
 
     public Product(String name) {
+        this.name = name;
+    }
+
+    public Product(long id, long version, String name) {
+        this.id = id;
+        this.version = version;
         this.name = name;
     }
 
@@ -27,7 +37,7 @@ public class Product {
         return name;
     }
 
-    public void update(final String name) {
-        this.name = name;
+    public long getVersion() {
+        return version;
     }
 }

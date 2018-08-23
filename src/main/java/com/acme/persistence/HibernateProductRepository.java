@@ -43,4 +43,9 @@ class HibernateProductRepository implements ProductRepository {
     public void delete(Product product) {
         sessionFactory.getCurrentSession().delete(product);
     }
+
+    @Override
+    public void update(final Product product) {
+        sessionFactory.getCurrentSession().update(product);
+    }
 }

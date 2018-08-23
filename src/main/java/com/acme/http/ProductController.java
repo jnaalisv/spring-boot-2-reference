@@ -45,7 +45,7 @@ public class ProductController {
         return ResponseEntity
                 .created(location)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .body(new ProductDTO(product.getId(), product.getName()));
+                .body(new ProductDTO(product));
     }
 
     static class ProductDTO {
@@ -54,11 +54,19 @@ public class ProductController {
         final long id;
 
         @JsonProperty
+        final long version;
+
+        @JsonProperty
         final String name;
 
-        ProductDTO(long id, String name) {
+        ProductDTO(long id, long version, String name) {
             this.name = name;
+            this.version = version;
             this.id = id;
+        }
+
+        ProductDTO(Product product) {
+            this(product.getId(), product.getVersion(), product.getName());
         }
     }
 
@@ -67,34 +75,36 @@ public class ProductController {
         final List<Product> products = productService.getAll();
         return products
                 .stream()
-                .map(product -> new ProductDTO(product.getId(), product.getName()))
+                .map(ProductDTO::new)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/products/{productId}")
     public ProductDTO getOne(@PathVariable Long productId) {
         final Product product = productService.getOne(productId);
-        return new ProductDTO(product.getId(), product.getName());
+        return new ProductDTO(product);
     }
 
     static class UpdateProductDTO {
 
         final String name;
+        final long version;
 
         @JsonCreator
-        UpdateProductDTO(@JsonProperty("name") String name) {
+        UpdateProductDTO(@JsonProperty("name") String name, @JsonProperty("version") long version) {
             this.name = name;
+            this.version = version;
         }
     }
 
     @PutMapping("/products/{productId}")
     public ProductDTO update(@PathVariable Long productId, @RequestBody UpdateProductDTO updateProductDTO) {
-        final Product updatedProduct = productService.update(productId, updateProductDTO.name);
-        return new ProductDTO(updatedProduct.getId(), updatedProduct.getName());
+        final Product updatedProduct = productService.update(productId, updateProductDTO.version, updateProductDTO.name);
+        return new ProductDTO(updatedProduct);
     }
 
     @DeleteMapping("/products/{productId}")
-    public void update(@PathVariable Long productId) {
+    public void delete(@PathVariable Long productId) {
         productService.delete(productId);
     }
 

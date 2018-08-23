@@ -43,7 +43,7 @@ class ProductResourceTests {
                     .andExpect(status().isCreated())
                     .andExpect(header().string("Content-Type", "application/json;charset=UTF-8"))
                     .andExpect(header().string("Location", "http://localhost/products/1"))
-                    .andExpect(content().json("{\"name\":\"HAL9000\", \"id\":1}"));
+                    .andExpect(content().json("{\"name\":\"HAL9000\", \"id\":1, \"version\":0}"));
         }
 
         @Nested
@@ -55,7 +55,7 @@ class ProductResourceTests {
                         get("/products")
                 )
                         .andExpect(status().isOk())
-                        .andExpect(content().json("[{\"name\":\"HAL9000\", \"id\":1}]"));
+                        .andExpect(content().json("[{\"name\":\"HAL9000\", \"id\":1, \"version\":0}]"));
             }
 
             @Test
@@ -64,7 +64,7 @@ class ProductResourceTests {
                         get("/products/1")
                 )
                         .andExpect(status().isOk())
-                        .andExpect(content().json("{\"name\":\"HAL9000\", \"id\":1}"));
+                        .andExpect(content().json("{\"name\":\"HAL9000\", \"id\":1, \"version\":0}"));
             }
 
             @Test
@@ -83,20 +83,36 @@ class ProductResourceTests {
                     mvc.perform(
                             put("/products/1")
                                     .contentType(MediaType.APPLICATION_JSON_UTF8)
-                                    .content("{\"name\":\"CRAY-1\"}")
+                                    .content("{\"name\":\"CRAY-1\", \"version\":0}")
                     )
                             .andExpect(status().isOk())
-                            .andExpect(content().json("{\"name\":\"CRAY-1\", \"id\":1}"));
+                            .andExpect(content().json("{\"name\":\"CRAY-1\", \"id\":1, \"version\":1}"));
                 }
 
                 @Test
-                void byInvalidIdReturnsNotFound() throws Exception {
+                void byInvalidIdReturnsConflict() throws Exception {
                     mvc.perform(
                             put("/products/994235234")
                                     .contentType(MediaType.APPLICATION_JSON_UTF8)
-                                    .content("{\"name\":\"CRAY-1\"}")
+                                    .content("{\"name\":\"CRAY-994235234\", \"version\":0}")
                     )
-                            .andExpect(status().isNotFound());
+                            .andExpect(status().isConflict());
+                }
+
+                @Test
+                void byInvalidVersionReturnsConflict() throws Exception {
+                    mvc.perform(
+                            put("/products/1")
+                                    .contentType(MediaType.APPLICATION_JSON_UTF8)
+                                    .content("{\"name\":\"CRAY-1\", \"version\":0}")
+                    );
+
+                    mvc.perform(
+                            put("/products/1")
+                                    .contentType(MediaType.APPLICATION_JSON_UTF8)
+                                    .content("{\"name\":\"CRAY-2\", \"version\":0}")
+                    )
+                            .andExpect(status().isConflict());
                 }
 
                 @Nested
