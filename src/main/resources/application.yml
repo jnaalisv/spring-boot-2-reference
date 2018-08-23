@@ -27,6 +27,7 @@ management:
         include: ["health", "info", "configprops", "env"]
 
 logging:
+  exception-conversion-word: "%msg%n%ex{full, sun, java, org}"
   level:
     root: INFO
     org.springframework: INFO
