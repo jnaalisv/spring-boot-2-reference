@@ -3,6 +3,7 @@ package com.acme.http;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.acme.domain.Product;
 import com.acme.domain.ProductService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +33,10 @@ public class ProductController {
                 .fromCurrentRequest().path("/{id}")
                 .buildAndExpand(product.getId()).toUri();
 
-        return ResponseEntity.created(location).build();
+        return ResponseEntity
+                .created(location)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .body(new ProductDTO(product.getId(), product.getName()));
     }
 
     static class NewProductDTO {
