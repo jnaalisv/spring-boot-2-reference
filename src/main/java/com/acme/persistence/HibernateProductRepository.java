@@ -48,4 +48,9 @@ class HibernateProductRepository implements ProductRepository {
     public void update(final Product product) {
         sessionFactory.getCurrentSession().update(product);
     }
+
+    @Override
+    public void flush() {
+        sessionFactory.getCurrentSession().flush();
+    }
 }

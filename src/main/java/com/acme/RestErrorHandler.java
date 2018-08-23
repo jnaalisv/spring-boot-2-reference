@@ -1,6 +1,7 @@
 package com.acme;
 
 import com.acme.domain.NotFoundException;
+import org.hibernate.StaleStateException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +19,8 @@ public class RestErrorHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
-    @ExceptionHandler(value = { HibernateOptimisticLockingFailureException.class})
-    protected ResponseEntity<Object> handleHibernateOptimisticLockingFailureException(HibernateOptimisticLockingFailureException ex, WebRequest request) {
+    @ExceptionHandler(value = { HibernateOptimisticLockingFailureException.class, StaleStateException.class})
+    protected ResponseEntity<Object> handleHibernateOptimisticLockingFailureException(RuntimeException ex, WebRequest request) {
         return handleExceptionInternal(ex, "Conflict, please refresh", new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
 

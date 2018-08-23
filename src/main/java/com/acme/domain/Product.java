@@ -19,25 +19,21 @@ public class Product {
 
     private String name;
 
-    public Product(String name) {
-        this.name = name;
-    }
-
-    public Product(long id, long version, String name) {
+    Product(long id, long version, String name) {
         this.id = id;
         this.version = version;
         this.name = name;
     }
 
-    public long getId() {
+    long getId() {
         return id;
     }
 
-    public String getName() {
+    String getName() {
         return name;
     }
 
-    public long getVersion() {
+    long getVersion() {
         return version;
     }
 }

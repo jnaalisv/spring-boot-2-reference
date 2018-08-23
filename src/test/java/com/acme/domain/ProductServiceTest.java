@@ -3,7 +3,8 @@ package com.acme.domain;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
+
+import javax.persistence.OptimisticLockException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -17,17 +18,21 @@ class ProductServiceTest {
     @Test
     void testOptimisticLocking() {
 
-        Product product = new Product("Computer Mk.I");
-        productService.save(product);
+        ProductDTO product = new ProductDTO(0,0,"Computer Mk.I");
+        ProductDTO savedProduct = productService.save(product);
 
-        productService.update(product.getId(), product.getVersion(), "Computer Mk.II");
-        Product fromDb = productService.getOne(product.getId());
-        assertEquals(fromDb.getName(), "Computer Mk.II");
-        assertEquals(fromDb.getVersion(), product.getVersion()+1);
+        savedProduct.name = "Computer Mk.II";
+        productService.update(savedProduct);
+        ProductDTO fromDb = productService.getOne(savedProduct.id);
+        assertEquals(fromDb.name, savedProduct.name);
+        assertEquals(fromDb.version, savedProduct.version+1);
+
+        fromDb.version = fromDb.version -1;
+        fromDb.name = "Mk.III";
 
         assertThrows(
-                HibernateOptimisticLockingFailureException.class,
-                () -> productService.update(fromDb.getId(), fromDb.getVersion()-1, "Mk.III")
+                OptimisticLockException.class,
+                () -> productService.update(fromDb)
         );
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -15,27 +16,36 @@ public class ProductService {
     }
 
     @Transactional
-    public void save(Product product) {
+    public ProductDTO save(ProductDTO productDTO) {
+        final Product product = productDTO.toEntity();
         productRepository.save(product);
+        return ProductDTO.from(product);
     }
 
     @Transactional(readOnly = true)
-    public List<Product> getAll() {
-        return productRepository.getAll();
+    public List<ProductDTO> getAll() {
+        return productRepository
+                .getAll()
+                .stream()
+                .map(ProductDTO::from)
+                .collect(Collectors.toList()
+                );
     }
 
     @Transactional(readOnly = true)
-    public Product getOne(long productId) {
+    public ProductDTO getOne(long productId) {
         return productRepository
                 .getOne(productId)
+                .map(ProductDTO::from)
                 .orElseThrow(() -> productNotFoundById(productId));
     }
 
     @Transactional
-    public Product update(Long productId, long version, String name) {
-        final Product product = new Product(productId, version, name);
+    public ProductDTO update(ProductDTO productDTO) {
+        final Product product = productDTO.toEntity();
         productRepository.update(product);
-        return product;
+        productRepository.flush();
+        return ProductDTO.from(product);
     }
 
     @Transactional

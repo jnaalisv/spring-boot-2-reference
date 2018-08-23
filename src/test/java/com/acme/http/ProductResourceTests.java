@@ -83,7 +83,7 @@ class ProductResourceTests {
                     mvc.perform(
                             put("/products/1")
                                     .contentType(MediaType.APPLICATION_JSON_UTF8)
-                                    .content("{\"name\":\"CRAY-1\", \"version\":0}")
+                                    .content("{\"id\":1, \"version\":0, \"name\":\"CRAY-1\"}")
                     )
                             .andExpect(status().isOk())
                             .andExpect(content().json("{\"name\":\"CRAY-1\", \"id\":1, \"version\":1}"));
