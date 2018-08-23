@@ -28,8 +28,6 @@ dependencyManagement {
         dependency ("javax.activation:activation:1.1.1")
     }
 }
-ext["junit-jupiter.version"] = "5.2.0"
-
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
