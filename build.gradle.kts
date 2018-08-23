@@ -40,8 +40,8 @@ dependencies {
 
     compile("org.springframework:spring-orm")
     compile("org.hibernate:hibernate-core")
-    compile("com.zaxxer:HikariCP")
-    compile("com.h2database:h2")
+    runtime("com.zaxxer:HikariCP")
+    runtime("com.h2database:h2")
 
     runtime ("javax.xml.bind:jaxb-api")
     runtime ("com.sun.xml.bind:jaxb-impl")
