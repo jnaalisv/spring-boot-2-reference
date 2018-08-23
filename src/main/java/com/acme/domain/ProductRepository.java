@@ -1,6 +1,7 @@
 package com.acme.domain;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductRepository {
 
@@ -8,7 +9,7 @@ public interface ProductRepository {
 
     List<Product> getAll();
 
-    Product getOne(long productId);
+    Optional<Product> getOne(long productId);
 
-    void delete(Long productId);
+    void delete(Product product);
 }

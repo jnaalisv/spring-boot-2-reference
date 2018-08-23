@@ -26,18 +26,30 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public Product getOne(long productId) {
-        return productRepository.getOne(productId);
+        return productRepository
+                .getOne(productId)
+                .orElseThrow(() -> productNotFoundById(productId));
     }
 
     @Transactional
     public Product update(Long productId, String name) {
-        Product product = productRepository.getOne(productId);
+        Product product = productRepository
+                .getOne(productId)
+                .orElseThrow(() -> productNotFoundById(productId));
         product.update(name);
         return product;
     }
 
     @Transactional
     public void delete(Long productId) {
-        productRepository.delete(productId);
+        Product product = productRepository
+                .getOne(productId)
+                .orElseThrow(() -> productNotFoundById(productId));
+
+        productRepository.delete(product);
+    }
+
+    private static NotFoundException productNotFoundById(Long productId) {
+        return NotFoundException.entityNotFound(Product.class, "id="+productId);
     }
 }

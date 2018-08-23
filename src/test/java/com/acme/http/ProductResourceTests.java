@@ -67,6 +67,14 @@ class ProductResourceTests {
                         .andExpect(content().json("{\"name\":\"HAL9000\", \"id\":1}"));
             }
 
+            @Test
+            void getByInvalidIdReturnsNotFound() throws Exception {
+                mvc.perform(
+                        get("/products/456436743")
+                )
+                        .andExpect(status().isNotFound());
+            }
+
             @Nested
             class update {
 
@@ -81,6 +89,16 @@ class ProductResourceTests {
                             .andExpect(content().json("{\"name\":\"CRAY-1\", \"id\":1}"));
                 }
 
+                @Test
+                void byInvalidIdReturnsNotFound() throws Exception {
+                    mvc.perform(
+                            put("/products/994235234")
+                                    .contentType(MediaType.APPLICATION_JSON_UTF8)
+                                    .content("{\"name\":\"CRAY-1\"}")
+                    )
+                            .andExpect(status().isNotFound());
+                }
+
                 @Nested
                 class andThenDelete {
 
@@ -88,6 +106,12 @@ class ProductResourceTests {
                     void byIdIsSuccessful() throws Exception {
                         mvc.perform(delete("/products/1"))
                                 .andExpect(status().isOk());
+                    }
+
+                    @Test
+                    void byInvalidIdReturnsNotFound() throws Exception {
+                        mvc.perform(delete("/products/1"))
+                                .andExpect(status().isNotFound());
                     }
 
                 }

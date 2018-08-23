@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 class HibernateProductRepository implements ProductRepository {
@@ -32,15 +33,14 @@ class HibernateProductRepository implements ProductRepository {
     }
 
     @Override
-    public Product getOne(long productId) {
-        return sessionFactory
+    public Optional<Product> getOne(long productId) {
+        return Optional.ofNullable(sessionFactory
                 .getCurrentSession()
-                .find(Product.class, productId);
+                .find(Product.class, productId));
     }
 
     @Override
-    public void delete(Long productId) {
-        Product product = getOne(productId);
+    public void delete(Product product) {
         sessionFactory.getCurrentSession().delete(product);
     }
 }
