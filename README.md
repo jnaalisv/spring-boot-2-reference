@@ -1,9 +1,9 @@
-### Spring Boot 2 sample project
-- gradlew 4.x with Gradle Script Kotlin and JaCoCo
-- Spring Boot 2.x
+### Spring Boot 2.1 sample project
+- gradlew 4.10 with Gradle Script Kotlin and JaCoCo
+- Spring Boot 2.1
 - Hibernate 5.3
 - JUnit Jupiter 5.3
-- Java8
+- Java11
 
 #### Todo
 - real DB, migrations
