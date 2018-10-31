@@ -29,5 +29,5 @@ logging:
   exception-conversion-word: "%msg%n%ex{full, sun, java, org}"
   level:
     root: INFO
-    org.springframework: INFO
-    org.hibernate: INFO
+    org.springframework: WARN
+    org.hibernate: WARN
