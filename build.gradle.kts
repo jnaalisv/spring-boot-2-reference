@@ -32,9 +32,8 @@ dependencies {
     compile("net.ttddyy:datasource-proxy:1.4.9")
 
     // JAXB (JSR 222) Standalone Implementation
-    runtime ("javax.xml.bind:jaxb-api:2.4.0-b180725.0427")
-    runtime ("com.sun.xml.bind:jaxb-impl:2.4.0-b180725.0644")
-    runtime ("com.sun.xml.bind:jaxb-core:2.3.0.1")
+    runtime ("javax.xml.bind:jaxb-api:2.3.0")
+    runtime ("org.glassfish.jaxb:jaxb-runtime:2.3.0.1")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("org.junit.jupiter:junit-jupiter-api")
