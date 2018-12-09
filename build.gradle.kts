@@ -2,7 +2,7 @@ plugins {
     java
     jacoco
     id("io.spring.dependency-management") version "1.0.6.RELEASE"
-    id("org.springframework.boot") version "2.1.0.RELEASE"
+    id("org.springframework.boot") version "2.1.1.RELEASE"
 
     id("com.gorylenko.gradle-git-properties") version "1.4.21"
 }
@@ -29,11 +29,11 @@ dependencies {
     compile("com.zaxxer:HikariCP")
     runtime("com.h2database:h2")
 
-    compile("net.ttddyy:datasource-proxy:1.4.9")
+    compile("net.ttddyy:datasource-proxy:1.4.10")
 
     // JAXB (JSR 222) Standalone Implementation
-    runtime ("javax.xml.bind:jaxb-api:2.3.0")
-    runtime ("org.glassfish.jaxb:jaxb-runtime:2.3.0.1")
+    runtime ("javax.xml.bind:jaxb-api:2.3.1")
+    runtime ("org.glassfish.jaxb:jaxb-runtime:2.3.1")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("org.junit.jupiter:junit-jupiter-api")
