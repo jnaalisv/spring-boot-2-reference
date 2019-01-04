@@ -21,8 +21,9 @@ springBoot {
     buildInfo()
 }
 
-val jaxbVersion = "2.3.1"
 val dsProxyVersion = "1.5"
+ext["hibernate.version"] = "5.4.0.Final"
+ext["hikaricp.version"] = "3.3.0"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -33,10 +34,6 @@ dependencies {
     implementation("net.ttddyy:datasource-proxy:$dsProxyVersion")
 
     runtimeOnly("com.h2database:h2")
-
-    // JAXB (JSR 222) Standalone Implementation
-    runtimeOnly ("javax.xml.bind:jaxb-api:$jaxbVersion")
-    runtimeOnly ("org.glassfish.jaxb:jaxb-runtime:$jaxbVersion")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.junit.jupiter:junit-jupiter-api")
