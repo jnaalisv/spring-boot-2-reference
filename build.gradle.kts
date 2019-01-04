@@ -25,23 +25,23 @@ val jaxbVersion = "2.3.1"
 val dsProxyVersion = "1.5"
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web")
-    compile("org.springframework.boot:spring-boot-starter-actuator")
-    compile("org.springframework:spring-orm")
-    compile("org.hibernate:hibernate-core")
-    compile("com.zaxxer:HikariCP")
-    runtime("com.h2database:h2")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework:spring-orm")
+    implementation("org.hibernate:hibernate-core")
+    implementation("com.zaxxer:HikariCP")
+    implementation("net.ttddyy:datasource-proxy:$dsProxyVersion")
 
-    compile("net.ttddyy:datasource-proxy:$dsProxyVersion")
+    runtimeOnly("com.h2database:h2")
 
     // JAXB (JSR 222) Standalone Implementation
-    runtime ("javax.xml.bind:jaxb-api:$jaxbVersion")
-    runtime ("org.glassfish.jaxb:jaxb-runtime:$jaxbVersion")
+    runtimeOnly ("javax.xml.bind:jaxb-api:$jaxbVersion")
+    runtimeOnly ("org.glassfish.jaxb:jaxb-runtime:$jaxbVersion")
 
-    testCompile("org.springframework.boot:spring-boot-starter-test")
-    testCompile("org.junit.jupiter:junit-jupiter-api")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
 
-    testRuntime("org.junit.jupiter:junit-jupiter-engine")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 }
 
 tasks {
