@@ -22,6 +22,7 @@ springBoot {
 }
 
 val jaxbVersion = "2.3.1"
+val dsProxyVersion = "1.5"
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
@@ -31,7 +32,7 @@ dependencies {
     compile("com.zaxxer:HikariCP")
     runtime("com.h2database:h2")
 
-    compile("net.ttddyy:datasource-proxy:1.4.10")
+    compile("net.ttddyy:datasource-proxy:$dsProxyVersion")
 
     // JAXB (JSR 222) Standalone Implementation
     runtime ("javax.xml.bind:jaxb-api:$jaxbVersion")
