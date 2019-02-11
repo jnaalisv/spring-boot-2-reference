@@ -22,7 +22,7 @@ springBoot {
 }
 
 val dsProxyVersion = "1.5"
-ext["hibernate.version"] = "5.4.0.Final"
+ext["hibernate.version"] = "5.4.1.Final"
 ext["hikaricp.version"] = "3.3.1"
 ext["junit-jupiter.version"] = "5.4.0"
 
