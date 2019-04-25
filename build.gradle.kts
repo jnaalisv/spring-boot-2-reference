@@ -45,7 +45,7 @@ tasks {
         reports {
             xml.isEnabled = false
             html.isEnabled = true
-            html.destination = file("${buildDir}/reports/tests/jacoco")
+            html.destination = file("$buildDir/reports/tests/jacoco")
         }
     }
 
