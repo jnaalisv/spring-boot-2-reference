@@ -21,10 +21,10 @@ springBoot {
     buildInfo()
 }
 
-val dsProxyVersion = "1.5"
+val dsProxyVersion = "1.5.1"
 ext["hibernate.version"] = "5.4.2.Final"
 ext["hikaricp.version"] = "3.3.1"
-ext["junit-jupiter.version"] = "5.4.1"
+ext["junit-jupiter.version"] = "5.4.2"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
