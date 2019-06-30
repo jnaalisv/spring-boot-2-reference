@@ -2,7 +2,7 @@ plugins {
     java
     jacoco
     id("io.spring.dependency-management") version "1.0.6.RELEASE"
-    id("org.springframework.boot") version "2.1.4.RELEASE"
+    id("org.springframework.boot") version "2.1.6.RELEASE"
 
     id("com.gorylenko.gradle-git-properties") version "1.4.21"
 }
@@ -22,7 +22,7 @@ springBoot {
 }
 
 val dsProxyVersion = "1.5.1"
-ext["hibernate.version"] = "5.4.2.Final"
+ext["hibernate.version"] = "5.4.3.Final"
 ext["hikaricp.version"] = "3.3.1"
 ext["junit-jupiter.version"] = "5.4.2"
 
