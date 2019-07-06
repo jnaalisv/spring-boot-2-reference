@@ -17,7 +17,13 @@ class SerializationTest {
 
     @Test
     void testSerialization() throws IOException {
-        ProductDTO productDTO = new ProductDTO(1, 6, "Computer I");
+        ProductDTO productDTO = ProductDTO
+                .builder()
+                .id(1)
+                .version(6)
+                .name("Computer I")
+                .build();
+
         String json = objectMapper.writeValueAsString(productDTO);
 
         assertEquals("{\"id\":1,\"version\":6,\"name\":\"Computer I\"}", json);
@@ -28,8 +34,8 @@ class SerializationTest {
 
         ProductDTO deSerializedJson = objectMapper.readValue("{\"id\":1,\"version\":6,\"name\":\"Computer I\"}",ProductDTO.class);
 
-        assertEquals(1, deSerializedJson.id);
-        assertEquals(6, deSerializedJson.version);
-        assertEquals("Computer I", deSerializedJson.name);
+        assertEquals(1, deSerializedJson.id());
+        assertEquals(6, deSerializedJson.version());
+        assertEquals("Computer I", deSerializedJson.name());
     }
 }

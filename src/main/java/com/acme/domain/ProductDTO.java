@@ -1,22 +1,39 @@
 package com.acme.domain;
 
-public class ProductDTO {
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.immutables.value.Value;
 
-    public long id;
-    public long version;
-    public String name;
+@JsonSerialize(as = ImmutableProductDTO.class)
+@JsonDeserialize(as = ImmutableProductDTO.class)
+@Value.Immutable
+public interface ProductDTO {
 
-    public ProductDTO(long id, long version, String name) {
-        this.id = id;
-        this.version = version;
-        this.name = name;
+    @Value.Default
+    default long id() {
+        return 0;
+    };
+
+    @Value.Default
+    default long version() {
+        return 0;
     }
+
+    String name();
 
     static ProductDTO from(Product product) {
-        return new ProductDTO(product.getId(), product.getVersion(), product.getName());
+        return builder()
+                .name(product.getName())
+                .id(product.getId())
+                .version(product.getVersion())
+                .build();
     }
 
-    Product toEntity() {
-        return new Product(id, version, name);
+    default Product toEntity() {
+        return new Product(id(), version(), name());
+    }
+
+    static ImmutableProductDTO.Builder builder() {
+        return ImmutableProductDTO.builder();
     }
 }

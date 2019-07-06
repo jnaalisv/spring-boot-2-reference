@@ -27,12 +27,15 @@ ext["hikaricp.version"] = "3.3.1"
 ext["junit-jupiter.version"] = "5.4.2"
 
 dependencies {
+    annotationProcessor ("org.immutables:value:2.7.4")
+
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework:spring-orm")
     implementation("org.hibernate:hibernate-core")
     implementation("com.zaxxer:HikariCP")
     implementation("net.ttddyy:datasource-proxy:$dsProxyVersion")
+    implementation ("org.immutables:value:2.7.4")
 
     runtimeOnly("com.h2database:h2")
 

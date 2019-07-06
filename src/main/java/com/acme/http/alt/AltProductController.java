@@ -1,5 +1,4 @@
 package com.acme.http.alt;
-
 import com.acme.domain.ProductDTO;
 import com.acme.domain.ProductService;
 import org.springframework.http.MediaType;
@@ -25,13 +24,13 @@ public class AltProductController {
     }
 
     @PostMapping("/alt-products")
-    public ResponseEntity<ProductView> save(@RequestBody NewProduct newProduct) {
-        final var savedProduct = productService.save(new ProductDTO(0, 0, newProduct.name));
+    public ResponseEntity<ProductView> save(@RequestBody ProductDTO productDTO) {
+        final var savedProduct = productService.save(productDTO);
 
         final var createdProduct = new ProductView(
-                savedProduct.id,
-                savedProduct.name,
-                savedProduct.version
+                savedProduct.id(),
+                savedProduct.name(),
+                savedProduct.version()
         );
 
         final var location = ServletUriComponentsBuilder
@@ -50,9 +49,9 @@ public class AltProductController {
                 .getAll()
                 .stream()
                 .map(productDTO -> new ProductView(
-                        productDTO.id,
-                        productDTO.name,
-                        productDTO.version
+                        productDTO.id(),
+                        productDTO.name(),
+                        productDTO.version()
                 ))
                 .collect(Collectors.toList());
     }
@@ -60,11 +59,11 @@ public class AltProductController {
     @GetMapping("/alt-products/{productId}")
     public ProductView getOne(@PathVariable Long productId) {
 
-        var productDTO = productService.getOne(productId);
+        var valueProduct = productService.getOne(productId);
         return new ProductView(
-                productDTO.id,
-                productDTO.name,
-                productDTO.version
+                valueProduct.id(),
+                valueProduct.name(),
+                valueProduct.version()
         );
     }
 

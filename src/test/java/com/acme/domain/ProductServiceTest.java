@@ -18,21 +18,29 @@ class ProductServiceTest {
     @Test
     void testOptimisticLocking() {
 
-        ProductDTO product = new ProductDTO(0,0,"Computer Mk.I");
-        ProductDTO savedProduct = productService.save(product);
+        ProductDTO newProduct = ProductDTO
+                .builder()
+                .name("Computer Mk.I")
+                .build();
 
-        savedProduct.name = "Computer Mk.II";
-        productService.update(savedProduct);
-        ProductDTO fromDb = productService.getOne(savedProduct.id);
-        assertEquals(fromDb.name, savedProduct.name);
-        assertEquals(fromDb.version, savedProduct.version+1);
+        ProductDTO savedProduct = productService.save(newProduct);
 
-        fromDb.version = fromDb.version -1;
-        fromDb.name = "Mk.III";
+        ProductDTO updateProductWith = ProductDTO
+                .builder()
+                .id(savedProduct.id())
+                .version(savedProduct.version())
+                .name("Computer Mk.II")
+                .build();
+
+        productService.update(updateProductWith);
+
+        ProductDTO updatedProduct = productService.getOne(savedProduct.id());
+        assertEquals(updatedProduct.name(), updateProductWith.name());
+        assertEquals(updatedProduct.version(), updateProductWith.version()+1);
 
         assertThrows(
                 OptimisticLockException.class,
-                () -> productService.update(fromDb)
+                () -> productService.update(updateProductWith)
         );
     }
 }

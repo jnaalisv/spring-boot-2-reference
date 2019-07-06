@@ -32,7 +32,7 @@ public class ProductController {
 
         final URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedProduct.id).toUri();
+                .buildAndExpand(savedProduct.id()).toUri();
 
         return ResponseEntity
                 .created(location)
