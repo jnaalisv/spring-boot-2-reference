@@ -2,7 +2,7 @@ plugins {
     java
     jacoco
     id("io.spring.dependency-management") version "1.0.6.RELEASE"
-    id("org.springframework.boot") version "2.1.7.RELEASE"
+    id("org.springframework.boot") version "2.1.8.RELEASE"
 
     id("com.gorylenko.gradle-git-properties") version "1.4.21"
 }
@@ -23,8 +23,8 @@ springBoot {
 
 val dsProxyVersion = "1.5.1"
 ext["hibernate.version"] = "5.4.4.Final"
-ext["hikaricp.version"] = "3.3.1"
-ext["junit-jupiter.version"] = "5.5.1"
+ext["hikaricp.version"] = "3.4.0"
+ext["junit-jupiter.version"] = "5.5.2"
 
 dependencies {
     annotationProcessor ("org.immutables:value:2.7.4")
