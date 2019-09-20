@@ -22,12 +22,13 @@ springBoot {
 }
 
 val dsProxyVersion = "1.5.1"
+val immutablesVersion = "2.7.4"
 ext["hibernate.version"] = "5.4.5.Final"
 ext["hikaricp.version"] = "3.4.0"
 ext["junit-jupiter.version"] = "5.5.2"
 
 dependencies {
-    annotationProcessor ("org.immutables:value:2.7.4")
+    annotationProcessor ("org.immutables:value:$immutablesVersion")
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
@@ -35,7 +36,7 @@ dependencies {
     implementation("org.hibernate:hibernate-core")
     implementation("com.zaxxer:HikariCP")
     implementation("net.ttddyy:datasource-proxy:$dsProxyVersion")
-    implementation ("org.immutables:value:2.7.4")
+    implementation ("org.immutables:value:$immutablesVersion")
 
     runtimeOnly("com.h2database:h2")
 
