@@ -44,7 +44,7 @@ class SmokeTest {
         ).isEqualTo(0);
 
         final HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         final HttpEntity entity = new HttpEntity<>("{\"name\":\"NewThingy\"}", httpHeaders);
 
         assertThat(

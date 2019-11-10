@@ -37,11 +37,11 @@ class ProductResourceTests {
         void canBeCreated() throws Exception {
             mvc.perform(
                     post("/products")
-                            .contentType(MediaType.APPLICATION_JSON_UTF8)
+                            .contentType(MediaType.APPLICATION_JSON)
                             .content("{\"name\":\"HAL9000\"}")
             )
                     .andExpect(status().isCreated())
-                    .andExpect(header().string("Content-Type", "application/json;charset=UTF-8"))
+                    .andExpect(header().string("Content-Type", "application/json"))
                     .andExpect(header().string("Location", "http://localhost/products/1"))
                     .andExpect(content().json("{\"name\":\"HAL9000\", \"id\":1, \"version\":0}"));
         }
@@ -82,7 +82,7 @@ class ProductResourceTests {
                 void returnsTheUpdatedProductAndHttpOK() throws Exception {
                     mvc.perform(
                             put("/products/1")
-                                    .contentType(MediaType.APPLICATION_JSON_UTF8)
+                                    .contentType(MediaType.APPLICATION_JSON)
                                     .content("{\"id\":1, \"version\":0, \"name\":\"CRAY-1\"}")
                     )
                             .andExpect(status().isOk())
@@ -93,7 +93,7 @@ class ProductResourceTests {
                 void byInvalidIdReturnsConflict() throws Exception {
                     mvc.perform(
                             put("/products/994235234")
-                                    .contentType(MediaType.APPLICATION_JSON_UTF8)
+                                    .contentType(MediaType.APPLICATION_JSON)
                                     .content("{\"name\":\"CRAY-994235234\", \"version\":0}")
                     )
                             .andExpect(status().isConflict());
@@ -103,13 +103,13 @@ class ProductResourceTests {
                 void byInvalidVersionReturnsConflict() throws Exception {
                     mvc.perform(
                             put("/products/1")
-                                    .contentType(MediaType.APPLICATION_JSON_UTF8)
+                                    .contentType(MediaType.APPLICATION_JSON)
                                     .content("{\"name\":\"CRAY-1\", \"version\":0}")
                     );
 
                     mvc.perform(
                             put("/products/1")
-                                    .contentType(MediaType.APPLICATION_JSON_UTF8)
+                                    .contentType(MediaType.APPLICATION_JSON)
                                     .content("{\"name\":\"CRAY-2\", \"version\":0}")
                     )
                             .andExpect(status().isConflict());

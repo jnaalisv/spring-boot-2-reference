@@ -55,3 +55,11 @@ tasks {
         finalizedBy(jacocoTestReport)
     }
 }
+
+tasks.withType<JavaCompile>().configureEach {
+    options.apply {
+        encoding = "UTF-8"
+        compilerArgs.add("-Xlint:unchecked")
+        compilerArgs.add("-Xlint:deprecation")
+    }
+}
