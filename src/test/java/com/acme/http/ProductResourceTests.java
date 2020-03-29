@@ -38,12 +38,16 @@ class ProductResourceTests {
             mvc.perform(
                     post("/products")
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content("{\"name\":\"HAL9000\"}")
+                            .content("""
+                                    {"name":"HAL9000"}
+                                    """)
             )
                     .andExpect(status().isCreated())
                     .andExpect(header().string("Content-Type", "application/json"))
                     .andExpect(header().string("Location", "http://localhost/products/1"))
-                    .andExpect(content().json("{\"name\":\"HAL9000\", \"id\":1, \"version\":0}"));
+                    .andExpect(content().json("""
+                            {"name":"HAL9000", "id":1, "version":0}
+                            """));
         }
 
         @Nested
@@ -55,7 +59,8 @@ class ProductResourceTests {
                         get("/products")
                 )
                         .andExpect(status().isOk())
-                        .andExpect(content().json("[{\"name\":\"HAL9000\", \"id\":1, \"version\":0}]"));
+                        .andExpect(content().json("""
+                                [{"name":"HAL9000", "id":1, "version":0}]"""));
             }
 
             @Test
@@ -64,7 +69,9 @@ class ProductResourceTests {
                         get("/products/1")
                 )
                         .andExpect(status().isOk())
-                        .andExpect(content().json("{\"name\":\"HAL9000\", \"id\":1, \"version\":0}"));
+                        .andExpect(content().json("""
+                                {"name":"HAL9000", "id":1, "version":0}
+                                """));
             }
 
             @Test
@@ -83,10 +90,14 @@ class ProductResourceTests {
                     mvc.perform(
                             put("/products/1")
                                     .contentType(MediaType.APPLICATION_JSON)
-                                    .content("{\"id\":1, \"version\":0, \"name\":\"CRAY-1\"}")
+                                    .content("""
+                                            {"id":1, "version":0, "name":"CRAY-1"}
+                                            """)
                     )
                             .andExpect(status().isOk())
-                            .andExpect(content().json("{\"name\":\"CRAY-1\", \"id\":1, \"version\":1}"));
+                            .andExpect(content().json("""
+                                    {"name":"CRAY-1", "id":1, "version":1}
+                                    """));
                 }
 
                 @Test
@@ -94,7 +105,8 @@ class ProductResourceTests {
                     mvc.perform(
                             put("/products/994235234")
                                     .contentType(MediaType.APPLICATION_JSON)
-                                    .content("{\"name\":\"CRAY-994235234\", \"version\":0}")
+                                    .content("""
+                                            {"name":"CRAY-994235234", "version":0}""")
                     )
                             .andExpect(status().isConflict());
                 }
@@ -104,13 +116,15 @@ class ProductResourceTests {
                     mvc.perform(
                             put("/products/1")
                                     .contentType(MediaType.APPLICATION_JSON)
-                                    .content("{\"name\":\"CRAY-1\", \"version\":0}")
+                                    .content("""
+                                            {"name":"CRAY-1", "version":0}""")
                     );
 
                     mvc.perform(
                             put("/products/1")
                                     .contentType(MediaType.APPLICATION_JSON)
-                                    .content("{\"name\":\"CRAY-2\", \"version\":0}")
+                                    .content("""
+                                            {"name":"CRAY-2", "version":0}""")
                     )
                             .andExpect(status().isConflict());
                 }

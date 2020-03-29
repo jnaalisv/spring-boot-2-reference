@@ -17,22 +17,27 @@ class SerializationTest {
 
     @Test
     void testSerialization() throws IOException {
-        ProductDTO productDTO = ProductDTO
-                .builder()
-                .id(1)
-                .version(6)
-                .name("Computer I")
-                .build();
+        ProductDTO productDTO = new ProductDTO(1, 6, "Computer I");
 
         String json = objectMapper.writeValueAsString(productDTO);
 
-        assertEquals("{\"id\":1,\"version\":6,\"name\":\"Computer I\"}", json);
+        assertEquals("""
+                {"id":1,"version":6,"name":"Computer I"}\
+                """, json);
     }
 
     @Test
     void testDeserialization() throws IOException {
 
-        ProductDTO deSerializedJson = objectMapper.readValue("{\"id\":1,\"version\":6,\"name\":\"Computer I\"}",ProductDTO.class);
+        var json = """
+                {
+                    "id":1,
+                    "version":6,
+                    "name":"Computer I"
+                }
+                """;
+
+        ProductDTO deSerializedJson = objectMapper.readValue(json, ProductDTO.class);
 
         assertEquals(1, deSerializedJson.id());
         assertEquals(6, deSerializedJson.version());
