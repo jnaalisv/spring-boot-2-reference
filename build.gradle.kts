@@ -10,7 +10,7 @@ plugins {
 version = "0.0.1-SNAPSHOT"
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_13
+    sourceCompatibility = JavaVersion.VERSION_14
 }
 
 repositories {
@@ -22,18 +22,14 @@ springBoot {
 }
 
 val dsProxyVersion = "1.5.1"
-val immutablesVersion = "2.7.4"
 
 dependencies {
-    annotationProcessor ("org.immutables:value:$immutablesVersion")
-
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework:spring-orm")
     implementation("org.hibernate:hibernate-core")
     implementation("com.zaxxer:HikariCP")
     implementation("net.ttddyy:datasource-proxy:$dsProxyVersion")
-    implementation ("org.immutables:value:$immutablesVersion")
 
     runtimeOnly("com.h2database:h2")
 
@@ -51,6 +47,7 @@ tasks {
     }
 
     test {
+        jvmArgs = listOf("--enable-preview")
         useJUnitPlatform()
         finalizedBy(jacocoTestReport)
     }
@@ -59,7 +56,7 @@ tasks {
 tasks.withType<JavaCompile>().configureEach {
     options.apply {
         encoding = "UTF-8"
-        compilerArgs.add("-Xlint:unchecked")
-        compilerArgs.add("-Xlint:deprecation")
+        compilerArgs.add("-Xlint:all")
+        compilerArgs.add("--enable-preview")
     }
 }

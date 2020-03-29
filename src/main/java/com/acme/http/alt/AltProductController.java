@@ -35,7 +35,7 @@ public class AltProductController {
 
         final var location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{id}")
-                .buildAndExpand(createdProduct.id).toUri();
+                .buildAndExpand(createdProduct.id()).toUri();
 
         return ResponseEntity
                 .created(location)
