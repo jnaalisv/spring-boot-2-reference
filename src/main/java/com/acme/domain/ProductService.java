@@ -28,8 +28,7 @@ public class ProductService {
                 .getAll()
                 .stream()
                 .map(ProductDTO::from)
-                .collect(Collectors.toList()
-                );
+                .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
