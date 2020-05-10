@@ -1,8 +1,8 @@
 plugins {
     java
     jacoco
-    id("io.spring.dependency-management") version "1.0.6.RELEASE"
-    id("org.springframework.boot") version "2.2.6.RELEASE"
+    id("io.spring.dependency-management") version "1.0.7.RELEASE"
+    id("org.springframework.boot") version "2.2.7.RELEASE"
 
     id("com.gorylenko.gradle-git-properties") version "1.4.21"
 }
