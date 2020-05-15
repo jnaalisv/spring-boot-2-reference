@@ -43,9 +43,13 @@ class SmokeTest {
                 .size()
         ).isEqualTo(0);
 
-        final HttpHeaders httpHeaders = new HttpHeaders();
+        var httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-        final HttpEntity entity = new HttpEntity<>("{\"name\":\"NewThingy\"}", httpHeaders);
+
+        var requestBody = """
+                {"name":"NewThingy"}
+                """;
+        var entity = new HttpEntity<>(requestBody, httpHeaders);
 
         assertThat(
                 restTemplate

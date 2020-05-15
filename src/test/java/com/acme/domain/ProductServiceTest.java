@@ -18,11 +18,14 @@ class ProductServiceTest {
     @Test
     void testOptimisticLocking() {
 
-        ProductDTO newProduct = new ProductDTO(0, 0, "Computer Mk.I");
+        var newProduct = new ProductDTO(0, 0, "Computer Mk.I");
 
-        ProductDTO savedProduct = productService.save(newProduct);
+        var savedProduct = productService.save(newProduct);
 
-        ProductDTO updateProductWith = new ProductDTO(savedProduct.id(), savedProduct.version(), "Computer Mk.II");
+        var updateProductWith = new ProductDTO(
+                savedProduct.id(),
+                savedProduct.version(),
+                "Computer Mk.II");
 
         productService.update(updateProductWith);
 
