@@ -10,7 +10,7 @@ plugins {
 version = "0.0.1-SNAPSHOT"
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_14
+    sourceCompatibility = JavaVersion.VERSION_15
 }
 
 repositories {
@@ -35,6 +35,10 @@ dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.junit.jupiter:junit-jupiter")
+}
+
+jacoco {
+    toolVersion = "0.8.6"
 }
 
 tasks {
