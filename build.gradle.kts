@@ -10,7 +10,7 @@ plugins {
 version = "0.0.1-SNAPSHOT"
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_15
+    sourceCompatibility = JavaVersion.VERSION_16
 }
 
 repositories {
@@ -51,7 +51,7 @@ tasks {
     }
 
     test {
-        jvmArgs = listOf("--enable-preview")
+        //jvmArgs = listOf("--enable-preview")
         useJUnitPlatform()
         finalizedBy(jacocoTestReport)
     }
@@ -61,6 +61,6 @@ tasks.withType<JavaCompile>().configureEach {
     options.apply {
         encoding = "UTF-8"
         compilerArgs.add("-Xlint:all")
-        compilerArgs.add("--enable-preview")
+        //compilerArgs.add("--enable-preview")
     }
 }
