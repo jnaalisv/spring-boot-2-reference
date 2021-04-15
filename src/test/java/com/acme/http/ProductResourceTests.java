@@ -24,7 +24,7 @@ class ProductResourceTests {
     private MockMvc mvc;
 
     @Test
-    void initiallyNoProducts() throws Exception {
+    void initiallyNoProducts() {
         mvc.perform(get("/products"))
             .andExpect(status().isOk())
                 .andExpect(content().json("[]"));
@@ -34,7 +34,7 @@ class ProductResourceTests {
     class aNewProduct {
 
         @Test
-        void canBeCreated() throws Exception {
+        void canBeCreated() {
             mvc.perform(
                     post("/products")
                             .contentType(MediaType.APPLICATION_JSON)
@@ -54,7 +54,7 @@ class ProductResourceTests {
         class andThen {
 
             @Test
-            void fetchedWithAllOthers() throws Exception {
+            void fetchedWithAllOthers() {
                 mvc.perform(
                         get("/products")
                 )
@@ -64,7 +64,7 @@ class ProductResourceTests {
             }
 
             @Test
-            void fetchedById() throws Exception {
+            void fetchedById() {
                 mvc.perform(
                         get("/products/1")
                 )
@@ -75,7 +75,7 @@ class ProductResourceTests {
             }
 
             @Test
-            void getByInvalidIdReturnsNotFound() throws Exception {
+            void getByInvalidIdReturnsNotFound() {
                 mvc.perform(
                         get("/products/456436743")
                 )
@@ -86,7 +86,7 @@ class ProductResourceTests {
             class update {
 
                 @Test
-                void returnsTheUpdatedProductAndHttpOK() throws Exception {
+                void returnsTheUpdatedProductAndHttpOK() {
                     mvc.perform(
                             put("/products/1")
                                     .contentType(MediaType.APPLICATION_JSON)
@@ -101,7 +101,7 @@ class ProductResourceTests {
                 }
 
                 @Test
-                void byInvalidIdReturnsConflict() throws Exception {
+                void byInvalidIdReturnsConflict() {
                     mvc.perform(
                             put("/products/994235234")
                                     .contentType(MediaType.APPLICATION_JSON)
@@ -112,7 +112,7 @@ class ProductResourceTests {
                 }
 
                 @Test
-                void byInvalidVersionReturnsConflict() throws Exception {
+                void byInvalidVersionReturnsConflict() {
                     mvc.perform(
                             put("/products/1")
                                     .contentType(MediaType.APPLICATION_JSON)
@@ -133,13 +133,13 @@ class ProductResourceTests {
                 class andThenDelete {
 
                     @Test
-                    void byIdIsSuccessful() throws Exception {
+                    void byIdIsSuccessful() {
                         mvc.perform(delete("/products/1"))
                                 .andExpect(status().isOk());
                     }
 
                     @Test
-                    void byInvalidIdReturnsNotFound() throws Exception {
+                    void byInvalidIdReturnsNotFound() {
                         mvc.perform(delete("/products/1"))
                                 .andExpect(status().isNotFound());
                     }
