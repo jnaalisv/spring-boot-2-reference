@@ -2,7 +2,7 @@ plugins {
     java
     jacoco
     id("io.spring.dependency-management") version "1.0.7.RELEASE"
-    id("org.springframework.boot") version "2.4.4"
+    id("org.springframework.boot") version "2.5.1"
 
     id("com.gorylenko.gradle-git-properties") version "1.4.21"
 }
@@ -10,7 +10,7 @@ plugins {
 version = "0.0.1-SNAPSHOT"
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_16
+    sourceCompatibility = JavaVersion.VERSION_17
 }
 
 repositories {
