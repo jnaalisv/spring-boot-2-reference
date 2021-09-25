@@ -2,7 +2,7 @@ plugins {
     java
     jacoco
     id("io.spring.dependency-management") version "1.0.7.RELEASE"
-    id("org.springframework.boot") version "2.5.1"
+    id("org.springframework.boot") version "2.5.5"
 
     id("com.gorylenko.gradle-git-properties") version "1.4.21"
 }
@@ -38,7 +38,7 @@ dependencies {
 }
 
 jacoco {
-    toolVersion = "0.8.6"
+    toolVersion = "0.8.7"
 }
 
 tasks {
