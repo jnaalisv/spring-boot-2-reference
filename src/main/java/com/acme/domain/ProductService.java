@@ -16,10 +16,10 @@ public class ProductService {
     }
 
     @Transactional
-    public ProductDTO save(ProductDTO productDTO) {
-        final Product product = productDTO.toEntity();
+    public ProductDTO save(ProductDTO dto) {
+        var product = new Product(dto.id(), dto.version(), dto.name());
         productRepository.save(product);
-        return ProductDTO.from(product);
+        return product.toDto();
     }
 
     @Transactional(readOnly = true)
@@ -27,7 +27,7 @@ public class ProductService {
         return productRepository
                 .getAll()
                 .stream()
-                .map(ProductDTO::from)
+                .map(Product::toDto)
                 .collect(Collectors.toList());
     }
 
@@ -35,16 +35,16 @@ public class ProductService {
     public ProductDTO getOne(long productId) {
         return productRepository
                 .getOne(productId)
-                .map(ProductDTO::from)
+                .map(Product::toDto)
                 .orElseThrow(() -> productNotFoundById(productId));
     }
 
     @Transactional
     public ProductDTO update(ProductDTO productDTO) {
-        final Product product = productDTO.toEntity();
+        var product = new Product(productDTO.id(), productDTO.version(), productDTO.name());
         productRepository.update(product);
         productRepository.flush();
-        return ProductDTO.from(product);
+        return product.toDto();
     }
 
     @Transactional

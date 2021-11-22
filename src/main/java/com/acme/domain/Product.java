@@ -15,7 +15,7 @@ public class Product {
     @Version
     private long version;
 
-    Product() { /* for hibernate */}
+    public Product() { /* for hibernate */}
 
     private String name;
 
@@ -25,15 +25,8 @@ public class Product {
         this.name = name;
     }
 
-    long getId() {
-        return id;
+    ProductDTO toDto() {
+        return new ProductDTO(id,version,name);
     }
 
-    String getName() {
-        return name;
-    }
-
-    long getVersion() {
-        return version;
-    }
 }
