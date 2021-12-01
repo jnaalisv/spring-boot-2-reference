@@ -21,7 +21,7 @@ springBoot {
     buildInfo()
 }
 
-val dsProxyVersion = "1.5.1"
+val dsProxyVersion = "1.7"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
