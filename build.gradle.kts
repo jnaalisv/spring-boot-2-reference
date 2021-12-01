@@ -1,8 +1,8 @@
 plugins {
     java
     jacoco
-    id("io.spring.dependency-management") version "1.0.7.RELEASE"
-    id("org.springframework.boot") version "2.6.0"
+    id("io.spring.dependency-management") version "1.0.11.RELEASE"
+    id("org.springframework.boot") version "3.0.0-SNAPSHOT"
 
     id("com.gorylenko.gradle-git-properties") version "1.4.21"
 }
@@ -15,6 +15,8 @@ java {
 
 repositories {
     mavenCentral()
+    maven { url = uri("https://repo.spring.io/milestone") }
+    maven { url = uri("https://repo.spring.io/snapshot") }
 }
 
 springBoot {
@@ -27,7 +29,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework:spring-orm")
-    implementation("org.hibernate:hibernate-core")
+    implementation("org.hibernate:hibernate-core-jakarta")
     implementation("com.zaxxer:HikariCP")
     implementation("net.ttddyy:datasource-proxy:$dsProxyVersion")
 
