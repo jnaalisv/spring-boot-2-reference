@@ -44,9 +44,9 @@ jacoco {
 tasks {
     jacocoTestReport {
         reports {
-            xml.isEnabled = false
-            html.isEnabled = true
-            html.destination = file("$buildDir/reports/tests/jacoco")
+            xml.required.set(false)
+            html.required.set(true)
+            html.outputLocation.set(file("$buildDir/reports/tests/jacoco"))
         }
     }
 
